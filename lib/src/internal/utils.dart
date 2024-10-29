@@ -7,24 +7,24 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import '../../tamara_sdk_flutter.dart';
 
-IOSNavigationResponseAction iosNavigationResponseHandler({
+Future<NavigationResponseAction?> iosNavigationResponseHandler({
   required TamaraCheckoutCompletion onResult,
   required String nextUrl,
-}) {
+}) async {
   if (nextUrl.contains(defaultMerchantUrls.cancel)) {
     onResult(TamaraWebViewResult.close);
-    return IOSNavigationResponseAction.CANCEL;
+    return NavigationResponseAction.CANCEL;
   }
   if (nextUrl.contains(defaultMerchantUrls.failure)) {
     onResult(TamaraWebViewResult.rejected);
-    return IOSNavigationResponseAction.CANCEL;
+    return Future.value(NavigationResponseAction.CANCEL);
   }
   if (nextUrl.contains(defaultMerchantUrls.success)) {
     onResult(TamaraWebViewResult.authorized);
-    return IOSNavigationResponseAction.CANCEL;
+    return Future.value(NavigationResponseAction.CANCEL);
   }
   onResult(TamaraWebViewResult.rejected);
-  return IOSNavigationResponseAction.ALLOW;
+  return Future.value(NavigationResponseAction.ALLOW);
 }
 
 void javaScriptHandler(
