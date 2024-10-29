@@ -5,11 +5,7 @@ import '../../tamara_sdk_flutter.dart';
 
 typedef TamaraCheckoutCompletion = void Function(TamaraWebViewResult resultCode);
 
-final options = InAppWebViewSettings(
-  applePayAPIEnabled: true,
-  useOnNavigationResponse: true,
-  incognito: true,
-);
+final options = InAppWebViewSettings(applePayAPIEnabled: true, useOnNavigationResponse: true, incognito: true, javaScriptEnabled: true);
 
 class TamaraWebView extends StatefulWidget {
   const TamaraWebView({
