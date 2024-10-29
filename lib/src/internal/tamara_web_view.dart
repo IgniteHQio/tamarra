@@ -71,13 +71,13 @@ class _TamaraWebViewState extends State<TamaraWebView> {
                 _progress = progress / 100;
               });
             },
-            onNavigationResponse: (controller, response) async {
-              final nextUrl = response.response?.url?.toString() ?? '';
-              return iosNavigationResponseHandler(
-                onResult: widget.onResult,
-                nextUrl: nextUrl,
-              );
-            },
+            // onNavigationResponse: (controller, response) async {
+            //   final nextUrl = response.response?.url?.toString() ?? '';
+            //   return iosNavigationResponseHandler(
+            //     onResult: widget.onResult,
+            //     nextUrl: nextUrl,
+            //   );
+            // },
             onWebViewCreated: (controller) async {
               controller.addJavaScriptHandler(
                 handlerName: 'tamaraMobileSDK',
