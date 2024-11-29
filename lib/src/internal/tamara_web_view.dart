@@ -5,10 +5,7 @@ import '../../tamara_sdk_flutter.dart';
 
 typedef TamaraCheckoutCompletion = void Function(TamaraWebViewResult resultCode);
 
-final options = InAppWebViewGroupOptions(
-  crossPlatform: InAppWebViewOptions(incognito: true),
-  ios: IOSInAppWebViewOptions(applePayAPIEnabled: true, useOnNavigationResponse: true),
-);
+final options = InAppWebViewSettings(applePayAPIEnabled: true, useOnNavigationResponse: true, incognito: true, javaScriptEnabled: true);
 
 class TamaraWebView extends StatefulWidget {
   const TamaraWebView({
@@ -63,20 +60,20 @@ class _TamaraWebViewState extends State<TamaraWebView> {
         Expanded(
           child: InAppWebView(
             key: webViewKey,
-            initialUrlRequest: URLRequest(url: Uri.parse(widget.webUrl)),
-            initialOptions: options,
+            initialUrlRequest: URLRequest(url: WebUri(widget.webUrl)),
+            initialSettings: options,
             onProgressChanged: (InAppWebViewController controller, int progress) {
               setState(() {
                 _progress = progress / 100;
               });
             },
-            iosOnNavigationResponse: (controller, response) async {
-              final nextUrl = response.response?.url?.toString() ?? '';
-              return iosNavigationResponseHandler(
-                onResult: widget.onResult,
-                nextUrl: nextUrl,
-              );
-            },
+            // onNavigationResponse: (controller, response) async {
+            //   final nextUrl = response.response?.url?.toString() ?? '';
+            //   return iosNavigationResponseHandler(
+            //     onResult: widget.onResult,
+            //     nextUrl: nextUrl,
+            //   );
+            // },
             onWebViewCreated: (controller) async {
               controller.addJavaScriptHandler(
                 handlerName: 'tamaraMobileSDK',
